@@ -22,6 +22,20 @@ namespace Odey.Security.Contracts
         /// <returns></returns>
         [OperationContract]
         Dictionary<FunctionPointIds, FunctionOperations> GetUserPermission();
+
+        /// <summary>
+        ///     Returns Allowed operations given a Function for User
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        FunctionOperations GetUserPermissionForFunction(FunctionPointIds function);
+
+        /// <summary>
+        ///     Returns weather a function-operation is allowed for the user
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        bool IsUserOperationAllowed(FunctionPointIds function, FunctionOperations operations);
     
     }
 }

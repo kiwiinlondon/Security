@@ -9,6 +9,7 @@ using Odey.Framework.Keeley.Entities.Enums;
 using Odey.Security.Contracts;
 using ServiceModelEx;
 using System.Data.Entity;
+using System.Data.SqlTypes;
 using System.DirectoryServices.AccountManagement;
 using System.Reflection;
 using log4net;
@@ -113,6 +114,26 @@ namespace Odey.Security
             string userName = GetUserName();
 
             return GetUserPermissionByADName(userName);
+        }
+
+        public FunctionOperations GetUserPermissionForFunction(FunctionPointIds function)
+        {
+            var permissions = GetUserPermission();
+
+            if (permissions.ContainsKey(function))
+            {
+                return permissions[function];
+            }
+
+            return FunctionOperations.None;
+        }
+
+        public bool IsUserOperationAllowed(FunctionPointIds function, FunctionOperations operations)
+        {
+            var allowedOperations = GetUserPermissionForFunction(function);
+
+            return allowedOperations.HasFlag(operations);
+
         }
 
 

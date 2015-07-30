@@ -24,6 +24,14 @@ namespace Odey.Security.SecurityService
             return security.GetUserPermission();
         }
 
-    
+        public FunctionOperations GetUserPermissionForFunction(FunctionPointIds function)
+        {
+            return security.GetUserPermissionForFunction(function);
+        }
+
+        public bool IsUserOperationAllowed(FunctionPointIds function, FunctionOperations operations)
+        {
+            return security.IsUserOperationAllowed(function, operations);
+        }
     }
 }

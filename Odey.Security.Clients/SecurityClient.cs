@@ -46,6 +46,42 @@ namespace Odey.Security.Clients
             return permissions;
         }
 
-    
+        public FunctionOperations GetUserPermissionForFunction(FunctionPointIds function)
+        {
+            FunctionOperations permission = FunctionOperations.None;
+            ISecurity proxy = factory.CreateChannel();
+            try
+            {
+                permission = proxy.GetUserPermissionForFunction(function);
+                ((ICommunicationObject)proxy).Close();
+
+            }
+            catch
+            {
+                ((ICommunicationObject)proxy).Abort();
+                throw;
+            }
+
+            return permission;
+        }
+
+        public bool IsUserOperationAllowed(FunctionPointIds function, FunctionOperations operations)
+        {
+            bool isUserAllowed;
+            ISecurity proxy = factory.CreateChannel();
+            try
+            {
+                isUserAllowed = proxy.IsUserOperationAllowed(function, operations);
+                ((ICommunicationObject)proxy).Close();
+
+            }
+            catch
+            {
+                ((ICommunicationObject)proxy).Abort();
+                throw;
+            }
+
+            return isUserAllowed;
+        }
     }
 }
