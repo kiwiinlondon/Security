@@ -14,6 +14,14 @@ namespace Odey.Security.Contracts
         /// <param name="adName">Active Directory Name</param>
         /// <returns></returns>
         [OperationContract]
-        Dictionary<FunctionPointIds, FunctionOperations> GetUserPermission(string adName);
+        Dictionary<FunctionPointIds, FunctionOperations> GetUserPermissionByADName(string adName);
+
+        /// <summary>
+        ///     Returns Dictionary with user's permissions and operations. Uses Call stack User Group or Windows if null
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        Dictionary<FunctionPointIds, FunctionOperations> GetUserPermission();
+    
     }
 }

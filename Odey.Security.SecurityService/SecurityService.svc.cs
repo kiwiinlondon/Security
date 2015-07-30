@@ -14,9 +14,16 @@ namespace Odey.Security.SecurityService
             security = new Security();
         }
 
-        public Dictionary<FunctionPointIds, FunctionOperations> GetUserPermission(string adName)
+        public Dictionary<FunctionPointIds, FunctionOperations> GetUserPermissionByADName(string adName)
         {
-            return security.GetUserPermission(adName);
+            return security.GetUserPermissionByADName(adName);
         }
+
+        public Dictionary<FunctionPointIds, FunctionOperations> GetUserPermission()
+        {
+            return security.GetUserPermission();
+        }
+
+    
     }
 }

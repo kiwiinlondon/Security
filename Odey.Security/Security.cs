@@ -9,6 +9,7 @@ using Odey.Framework.Keeley.Entities.Enums;
 using Odey.Security.Contracts;
 using ServiceModelEx;
 using System.Data.Entity;
+using System.DirectoryServices.AccountManagement;
 using System.Reflection;
 using log4net;
 using log4net.Repository.Hierarchy;
@@ -24,7 +25,7 @@ namespace Odey.Security
             logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         }
 
-        public Dictionary<FunctionPointIds,FunctionOperations> GetUserPermission(string adName)
+        public Dictionary<FunctionPointIds, FunctionOperations> GetUserPermissionByADName(string adName)
         {
             logger.DebugFormat("Get User Permission: {0}", adName);
 
@@ -33,43 +34,130 @@ namespace Odey.Security
             using (KeeleyModel context = new KeeleyModel(SecurityCallStackContext.Current))
             {
 
-                var securityG = context.SecurityGroups.SingleOrDefault( sg => sg.ADName == adName);
+                List<string> usersGroups = GetGroupsForUserName(adName);
+                
+                // Get all Security Groups for that user
+                var securityGroupsIds = context.SecurityGroups.Where(sg => usersGroups.Any( group => group == sg.ADName)).Select( group => group.SecurityGroupId);
 
-                if (securityG == null)
+                if (securityGroupsIds == null)
                 {
                     return permissions;
                 }
 
-                var functionsPoints = context.SecurityGroupFunctionPoints.Where(sg => sg.SecurityGroupId == securityG.SecurityGroupId).ToList();
+                var userFunctionPoints = context.SecurityGroupFunctionPoints.Where( fp => securityGroupsIds.Any( groupId => groupId == fp.SecurityGroupId ) );
 
-                foreach (var functions in functionsPoints)
+                foreach (var functionPoint in userFunctionPoints)
                 {
-                    FunctionOperations ops = FunctionOperations.None;
-                    if (functions.CreatePermission)
-                    {
-                        ops |= FunctionOperations.Create;
-                    }
+                    FunctionPointIds fp = (FunctionPointIds) functionPoint.FunctionPointId;
 
-                    if (functions.ReadPermission)
+                    // If Function Point exist. Add New Permissions (If User belong to 2 groups we need and Or of both permissions
+                    if (permissions.ContainsKey(fp))
                     {
-                        ops |= FunctionOperations.Read;
-                    }
+                        FunctionOperations operations = permissions[fp];
 
-                    if (functions.UpdatePermission)
+                        // Add new Permissions
+                        if (functionPoint.CreatePermission && !operations.HasFlag(FunctionOperations.Create))
+                        {
+                            operations |= FunctionOperations.Create;
+                        }
+                        if (functionPoint.ReadPermission && !operations.HasFlag(FunctionOperations.Read))
+                        {
+                            operations |= FunctionOperations.Read;
+                        }
+                        if (functionPoint.UpdatePermission && !operations.HasFlag(FunctionOperations.Update))
+                        {
+                            operations |= FunctionOperations.Update;
+                        }
+                        if (functionPoint.DeletePermission && !operations.HasFlag(FunctionOperations.Delete))
+                        {
+                            operations |= FunctionOperations.Delete;
+                        }
+
+                        permissions[fp] = operations;
+                    }
+                    else
                     {
-                        ops |= FunctionOperations.Update;
-                    }
+                        FunctionOperations ops = FunctionOperations.None;
+                        if (functionPoint.CreatePermission)
+                        {
+                            ops |= FunctionOperations.Create;
+                        }
 
-                    if (functions.DeletePermission)
-                    {
-                        ops |= FunctionOperations.Delete;
-                    }
+                        if (functionPoint.ReadPermission)
+                        {
+                            ops |= FunctionOperations.Read;
+                        }
 
-                    permissions.Add((FunctionPointIds) functions.FunctionPointId, ops);
+                        if (functionPoint.UpdatePermission)
+                        {
+                            ops |= FunctionOperations.Update;
+                        }
+
+                        if (functionPoint.DeletePermission)
+                        {
+                            ops |= FunctionOperations.Delete;
+                        }
+
+                        permissions.Add(fp, ops);
+
+                    }
                 }
 
                 return permissions;
             }
+        }
+
+
+        public Dictionary<FunctionPointIds, FunctionOperations> GetUserPermission()
+        {
+            string userName = GetUserName();
+
+            return GetUserPermissionByADName(userName);
+        }
+
+
+        private string GetUserName()
+        {
+            var callStack = SecurityCallStackContext.Current;
+            SecurityCallFrame callFrame = null;
+            if (callStack != null)
+            {
+                callFrame = callStack.OriginalCall;
+            }
+            string userName;
+            if (callFrame == null)
+            {
+                // Debug Locahost
+                userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            }
+            else
+            {
+                userName = callFrame.IdentityName;
+            }
+            return userName;
+        }
+
+        private List<string> GetGroupsForUserName(string adName)
+        {
+            List<string> groupNames = new List<string>();
+
+            var pc = new PrincipalContext(ContextType.Domain, "OAM.ODEY.COM");
+            UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(pc, adName);
+
+            if (userPrincipal != null)
+            {
+                var groups = userPrincipal.GetAuthorizationGroups();
+                // iterate over all groups
+                foreach (Principal p in groups)
+                {
+                    // make sure to add only group principals
+                    if (p is GroupPrincipal)
+                    {
+                        groupNames.Add( p.SamAccountName );
+                    }
+                }
+            }
+            return groupNames;
         }
     }
 }
