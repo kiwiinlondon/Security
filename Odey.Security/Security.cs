@@ -12,23 +12,27 @@ using System.Data.Entity;
 using System.Data.SqlTypes;
 using System.DirectoryServices.AccountManagement;
 using System.Reflection;
+using System.Runtime.Caching;
 using log4net;
 using log4net.Repository.Hierarchy;
 
 namespace Odey.Security
 {
-    public class Security : ISecurity
+    public static class Security 
     {
-        private readonly ILog logger;
+        private static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public Security()
-        {
-            logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        }
-
-        public Dictionary<FunctionPointIds, FunctionOperations> GetUserPermissionByADName(string adName)
+     
+        public static Dictionary<FunctionPointIds, FunctionOperations> GetUserPermissionByADName(string adName)
         {
             logger.DebugFormat("Get User Permission: {0}", adName);
+
+            // Check Cache for permissions
+            var permissionsCached = GetObjectFromCache(adName);
+            if (permissionsCached != null)
+            {
+                return permissionsCached;
+            }
 
             var permissions = new Dictionary<FunctionPointIds, FunctionOperations>();
 
@@ -104,19 +108,22 @@ namespace Odey.Security
                     }
                 }
 
+                SaveToCache(adName, permissions);
                 return permissions;
             }
         }
 
+      
 
-        public Dictionary<FunctionPointIds, FunctionOperations> GetUserPermission()
+
+        public static Dictionary<FunctionPointIds, FunctionOperations> GetUserPermission()
         {
             string userName = GetUserName();
 
             return GetUserPermissionByADName(userName);
         }
 
-        public FunctionOperations GetUserPermissionForFunction(FunctionPointIds function)
+        public static FunctionOperations GetUserPermissionForFunction(FunctionPointIds function)
         {
             var permissions = GetUserPermission();
 
@@ -128,7 +135,7 @@ namespace Odey.Security
             return FunctionOperations.None;
         }
 
-        public bool IsUserOperationAllowed(FunctionPointIds function, FunctionOperations operations)
+        public static bool IsUserOperationAllowed(FunctionPointIds function, FunctionOperations operations)
         {
             var allowedOperations = GetUserPermissionForFunction(function);
 
@@ -136,8 +143,28 @@ namespace Odey.Security
 
         }
 
+        private static void SaveToCache(string adName, Dictionary<FunctionPointIds, FunctionOperations> permissions)
+        {
+            ObjectCache cache = MemoryCache.Default;
 
-        private string GetUserName()
+            string sql = String.Format("SELECT * FROM dbo.SecurityGroupFunctionPoint");
+
+            cache.Set(adName, permissions, Odey.Framework.Infrastructure.Utilities.CacheItemPolicyHelper.GetForSql(sql));
+        }
+
+        private static Dictionary<FunctionPointIds, FunctionOperations> GetObjectFromCache(string adName)
+        {
+            ObjectCache cache = MemoryCache.Default;
+
+            if (cache.Contains(adName))
+            {
+                return (Dictionary<FunctionPointIds, FunctionOperations>)cache.Get(adName);
+            }
+
+            return null;
+        }
+
+        private static string GetUserName()
         {
             var callStack = SecurityCallStackContext.Current;
             SecurityCallFrame callFrame = null;
@@ -158,7 +185,7 @@ namespace Odey.Security
             return userName;
         }
 
-        private List<string> GetGroupsForUserName(string adName)
+        private static List<string> GetGroupsForUserName(string adName)
         {
             List<string> groupNames = new List<string>();
 

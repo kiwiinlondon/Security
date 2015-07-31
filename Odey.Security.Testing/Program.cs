@@ -15,7 +15,7 @@ namespace Odey.Security.Testing
         static void Main(string[] args)
         {
            
-            var security = new Security();
+            //var security = new Security();
 
             //var a = security.GetUserPermission();
         }
