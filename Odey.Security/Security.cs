@@ -25,10 +25,14 @@ namespace Odey.Security
      
         public static Dictionary<FunctionPointIds, FunctionOperations> GetUserPermissionByADName(string adName)
         {
+            adName = adName.ToUpper();
             logger.DebugFormat("Get User Permission: {0}", adName);
 
+            ObjectCache cache = MemoryCache.Default;
+
+
             // Check Cache for permissions
-            var permissionsCached = GetObjectFromCache(adName);
+            var permissionsCached = GetObjectFromCache(adName, cache);
             if (permissionsCached != null)
             {
                 return permissionsCached;
@@ -41,15 +45,8 @@ namespace Odey.Security
 
                 List<string> usersGroups = GetGroupsForUserName(adName);
                 
-                // Get all Security Groups for that user
-                var securityGroupsIds = context.SecurityGroups.Where(sg => usersGroups.Any( group => group == sg.ADName)).Select( group => group.SecurityGroupId);
-
-                if (securityGroupsIds == null)
-                {
-                    return permissions;
-                }
-
-                var userFunctionPoints = context.SecurityGroupFunctionPoints.Where( fp => securityGroupsIds.Any( groupId => groupId == fp.SecurityGroupId ) );
+             
+                var userFunctionPoints = context.SecurityGroupFunctionPoints.Where(fp => usersGroups.Any( gr => gr == fp.SecurityGroup.ADName)).ToList();
 
                 foreach (var functionPoint in userFunctionPoints)
                 {
@@ -108,7 +105,7 @@ namespace Odey.Security
                     }
                 }
 
-                SaveToCache(adName, permissions);
+                SaveToCache(adName, permissions, cache);
                 return permissions;
             }
         }
@@ -143,19 +140,15 @@ namespace Odey.Security
 
         }
 
-        private static void SaveToCache(string adName, Dictionary<FunctionPointIds, FunctionOperations> permissions)
+        private static void SaveToCache(string adName, Dictionary<FunctionPointIds, FunctionOperations> permissions, ObjectCache cache)
         {
-            ObjectCache cache = MemoryCache.Default;
-
-            string sql = String.Format("SELECT * FROM dbo.SecurityGroupFunctionPoint");
+            string sql = String.Format("SELECT CreatePermission, ReadPermission, UpdatePermission, DeletePermission FROM dbo.SecurityGroupFunctionPoint");
 
             cache.Set(adName, permissions, Odey.Framework.Infrastructure.Utilities.CacheItemPolicyHelper.GetForSql(sql));
         }
 
-        private static Dictionary<FunctionPointIds, FunctionOperations> GetObjectFromCache(string adName)
+        private static Dictionary<FunctionPointIds, FunctionOperations> GetObjectFromCache(string adName, ObjectCache cache)
         {
-            ObjectCache cache = MemoryCache.Default;
-
             if (cache.Contains(adName))
             {
                 return (Dictionary<FunctionPointIds, FunctionOperations>)cache.Get(adName);
