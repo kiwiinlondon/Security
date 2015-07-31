@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,7 +46,7 @@ namespace Odey.Security
 
                 List<string> usersGroups = GetGroupsForUserName(adName);
                 
-             
+
                 var userFunctionPoints = context.SecurityGroupFunctionPoints.Where(fp => usersGroups.Any( gr => gr == fp.SecurityGroup.ADName)).ToList();
 
                 foreach (var functionPoint in userFunctionPoints)
@@ -178,7 +179,9 @@ namespace Odey.Security
             return userName;
         }
 
-        private static List<string> GetGroupsForUserName(string adName)
+        private static readonly List<string>  groupsToReturn = new List<string> {"OU=Intranet"};
+
+        public static List<string> GetGroupsForUserName(string adName)
         {
             List<string> groupNames = new List<string>();
 
@@ -192,7 +195,7 @@ namespace Odey.Security
                 foreach (Principal p in groups)
                 {
                     // make sure to add only group principals
-                    if (p is GroupPrincipal)
+                    if (p is GroupPrincipal && !string.IsNullOrEmpty(p.DistinguishedName) && groupsToReturn.Any(g => p.DistinguishedName.Contains(g)))
                     {
                         groupNames.Add( p.SamAccountName );
                     }

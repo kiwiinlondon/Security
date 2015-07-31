@@ -14,8 +14,10 @@ namespace Odey.Security.Testing
     {
         static void Main(string[] args)
         {
-           
-            //var security = new Security();
+
+
+
+            var security = Security.GetGroupsForUserName(@"OAM\carlosr");
 
             //var a = security.GetUserPermission();
         }
