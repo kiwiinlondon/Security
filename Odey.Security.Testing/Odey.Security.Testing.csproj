@@ -67,8 +67,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Odey.Framework.Infrastructure.Clients">
-      <HintPath>..\Odey.Security\bin\ReleaseDebug\Odey.Framework.Infrastructure.Clients.dll</HintPath>
+    <Reference Include="Odey.Framework.Infrastructure.Clients, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Odey.Framework.Infrastructure\Odey.Framework.Infrastructure.Clients.dll</HintPath>
     </Reference>
     <Reference Include="Odey.Framework.Keeley.Entities.Enums, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -76,7 +77,7 @@
     </Reference>
     <Reference Include="ServiceModelEx.IdentityCallStack, Version=4.0.0.0, Culture=neutral, PublicKeyToken=d0f8277329bba7a0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Odey.Security\bin\ReleaseDebug\ServiceModelEx.IdentityCallStack.dll</HintPath>
+      <HintPath>..\Binaries\ServiceModelEx\ServiceModelEx.IdentityCallStack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
