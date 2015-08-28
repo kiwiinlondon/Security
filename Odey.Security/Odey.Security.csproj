@@ -60,6 +60,10 @@
     <Reference Include="Odey.Framework.Infrastructure.Services">
       <HintPath>..\Binaries\Odey.Framework.Infrastructure\Odey.Framework.Infrastructure.Services.dll</HintPath>
     </Reference>
+    <Reference Include="Odey.Framework.Infrastructure.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Odey.Framework.Infrastructure\Odey.Framework.Infrastructure.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="Odey.Framework.Keeley.Entities">
       <HintPath>..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.dll</HintPath>
     </Reference>
