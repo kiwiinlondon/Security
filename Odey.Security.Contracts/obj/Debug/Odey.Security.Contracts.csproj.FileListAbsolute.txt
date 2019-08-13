@@ -1,0 +1,9 @@
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\bin\Debug\Odey.Security.Contracts.dll
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\bin\Debug\Odey.Security.Contracts.pdb
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\bin\Debug\Odey.Framework.Keeley.Entities.dll
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\bin\Debug\Odey.Framework.Keeley.Entities.Enums.dll
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\bin\Debug\Odey.Framework.Keeley.Entities.KeeleyModel.dll
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\obj\Debug\Odey.Security.Contracts.csproj.CoreCompileInputs.cache
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\obj\Debug\Odey.Security.Contracts.csproj.CopyComplete
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\obj\Debug\Odey.Security.Contracts.dll
+C:\git\odey\code\Odey.Security\Odey.Security.Contracts\obj\Debug\Odey.Security.Contracts.pdb
