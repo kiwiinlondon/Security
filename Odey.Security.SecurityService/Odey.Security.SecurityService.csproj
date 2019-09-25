@@ -44,13 +44,16 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Odey.Framework.Infrastructure.Services">
-      <HintPath>..\..\Binaries\Odey.Framework.Infrastructure\Odey.Framework.Infrastructure.Services.dll</HintPath>
+      <HintPath Condition="Exists('..\..\Binaries\Odey.Framework.Infrastructure\Odey.Framework.Infrastructure.Services.dll')">..\..\Binaries\Odey.Framework.Infrastructure\Odey.Framework.Infrastructure.Services.dll</HintPath>
+      <HintPath Condition="Exists('..\Binaries\Odey.Framework.Infrastructure\Odey.Framework.Infrastructure.Services.dll')">..\Binaries\Odey.Framework.Infrastructure\Odey.Framework.Infrastructure.Services.dll</HintPath>
     </Reference>
     <Reference Include="Odey.Framework.Keeley.Entities.Enums">
-      <HintPath>..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll</HintPath>
+      <HintPath Condition="Exists('..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll')">..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll</HintPath>
+      <HintPath Condition="Exists('..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll')">..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll</HintPath>
     </Reference>
     <Reference Include="ServiceModelEx.IdentityCallStack">
-      <HintPath>..\..\Binaries\ServiceModelEx\ServiceModelEx.IdentityCallStack.dll</HintPath>
+      <HintPath Condition="Exists('..\..\Binaries\ServiceModelEx\ServiceModelEx.IdentityCallStack.dll')">..\..\Binaries\ServiceModelEx\ServiceModelEx.IdentityCallStack.dll</HintPath>
+      <HintPath Condition="Exists('..\Binaries\ServiceModelEx\ServiceModelEx.IdentityCallStack.dll')">..\Binaries\ServiceModelEx\ServiceModelEx.IdentityCallStack.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />

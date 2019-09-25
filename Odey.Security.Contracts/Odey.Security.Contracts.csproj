@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Odey.Security.Contracts</RootNamespace>
     <AssemblyName>Odey.Security.Contracts</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -49,13 +49,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Odey.Framework.Keeley.Entities">
-      <HintPath>..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.dll</HintPath>
+      <HintPath Condition="Exists('..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.dll')">..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.dll</HintPath>
+      <HintPath Condition="Exists('..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.dll')">..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Odey.Framework.Keeley.Entities.Enums">
-      <HintPath>..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll</HintPath>
+      <HintPath Condition="Exists('..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll')">..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll</HintPath>
+      <HintPath Condition="Exists('..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll')">..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.Enums.dll</HintPath>
     </Reference>
     <Reference Include="Odey.Framework.Keeley.Entities.KeeleyModel">
-      <HintPath>..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.KeeleyModel.dll</HintPath>
+      <HintPath Condition="Exists('..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.KeeleyModel.dll')">..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.KeeleyModel.dll</HintPath>
+      <HintPath Condition="Exists('..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.KeeleyModel.dll')">..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.KeeleyModel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
