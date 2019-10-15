@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Odey.Security", "Odey.Security\Odey.Security.csproj", "{A6081FFC-B474-40A9-835F-0CA7444533FB}"
 EndProject
@@ -25,6 +25,8 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 		ReleaseDebug|Any CPU = ReleaseDebug|Any CPU
+		TeamCitySecurityClient|Any CPU = TeamCitySecurityClient|Any CPU
+		TeamCitySecurityService|Any CPU = TeamCitySecurityService|Any CPU
 		UAT|Any CPU = UAT|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -34,6 +36,10 @@ Global
 		{A6081FFC-B474-40A9-835F-0CA7444533FB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6081FFC-B474-40A9-835F-0CA7444533FB}.ReleaseDebug|Any CPU.ActiveCfg = ReleaseDebug|Any CPU
 		{A6081FFC-B474-40A9-835F-0CA7444533FB}.ReleaseDebug|Any CPU.Build.0 = ReleaseDebug|Any CPU
+		{A6081FFC-B474-40A9-835F-0CA7444533FB}.TeamCitySecurityClient|Any CPU.ActiveCfg = TeamCitySecurityClient|Any CPU
+		{A6081FFC-B474-40A9-835F-0CA7444533FB}.TeamCitySecurityClient|Any CPU.Build.0 = TeamCitySecurityClient|Any CPU
+		{A6081FFC-B474-40A9-835F-0CA7444533FB}.TeamCitySecurityService|Any CPU.ActiveCfg = TeamCitySecurityService|Any CPU
+		{A6081FFC-B474-40A9-835F-0CA7444533FB}.TeamCitySecurityService|Any CPU.Build.0 = TeamCitySecurityService|Any CPU
 		{A6081FFC-B474-40A9-835F-0CA7444533FB}.UAT|Any CPU.ActiveCfg = UAT|Any CPU
 		{A6081FFC-B474-40A9-835F-0CA7444533FB}.UAT|Any CPU.Build.0 = UAT|Any CPU
 		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -42,6 +48,10 @@ Global
 		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.ReleaseDebug|Any CPU.ActiveCfg = ReleaseDebug|Any CPU
 		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.ReleaseDebug|Any CPU.Build.0 = ReleaseDebug|Any CPU
+		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.TeamCitySecurityClient|Any CPU.ActiveCfg = TeamCitySecurityClient|Any CPU
+		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.TeamCitySecurityClient|Any CPU.Build.0 = TeamCitySecurityClient|Any CPU
+		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.TeamCitySecurityService|Any CPU.ActiveCfg = TeamCitySecurityService|Any CPU
+		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.TeamCitySecurityService|Any CPU.Build.0 = TeamCitySecurityService|Any CPU
 		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.UAT|Any CPU.ActiveCfg = UAT|Any CPU
 		{0A414B41-B16D-4EF0-B29E-314B619A17D3}.UAT|Any CPU.Build.0 = UAT|Any CPU
 		{7FAC69B4-016B-4A56-A888-AB43B636797F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -50,6 +60,9 @@ Global
 		{7FAC69B4-016B-4A56-A888-AB43B636797F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FAC69B4-016B-4A56-A888-AB43B636797F}.ReleaseDebug|Any CPU.ActiveCfg = ReleaseDebug|Any CPU
 		{7FAC69B4-016B-4A56-A888-AB43B636797F}.ReleaseDebug|Any CPU.Build.0 = ReleaseDebug|Any CPU
+		{7FAC69B4-016B-4A56-A888-AB43B636797F}.TeamCitySecurityClient|Any CPU.ActiveCfg = TeamCitySecurityClient|Any CPU
+		{7FAC69B4-016B-4A56-A888-AB43B636797F}.TeamCitySecurityService|Any CPU.ActiveCfg = TeamCitySecurityService|Any CPU
+		{7FAC69B4-016B-4A56-A888-AB43B636797F}.TeamCitySecurityService|Any CPU.Build.0 = TeamCitySecurityService|Any CPU
 		{7FAC69B4-016B-4A56-A888-AB43B636797F}.UAT|Any CPU.ActiveCfg = UAT|Any CPU
 		{7FAC69B4-016B-4A56-A888-AB43B636797F}.UAT|Any CPU.Build.0 = UAT|Any CPU
 		{474FB060-76D7-45E8-8679-705FD91533BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,6 +71,9 @@ Global
 		{474FB060-76D7-45E8-8679-705FD91533BC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{474FB060-76D7-45E8-8679-705FD91533BC}.ReleaseDebug|Any CPU.ActiveCfg = ReleaseDebug|Any CPU
 		{474FB060-76D7-45E8-8679-705FD91533BC}.ReleaseDebug|Any CPU.Build.0 = ReleaseDebug|Any CPU
+		{474FB060-76D7-45E8-8679-705FD91533BC}.TeamCitySecurityClient|Any CPU.ActiveCfg = TeamCitySecurityClient|Any CPU
+		{474FB060-76D7-45E8-8679-705FD91533BC}.TeamCitySecurityClient|Any CPU.Build.0 = TeamCitySecurityClient|Any CPU
+		{474FB060-76D7-45E8-8679-705FD91533BC}.TeamCitySecurityService|Any CPU.ActiveCfg = TeamCitySecurityService|Any CPU
 		{474FB060-76D7-45E8-8679-705FD91533BC}.UAT|Any CPU.ActiveCfg = UAT|Any CPU
 		{474FB060-76D7-45E8-8679-705FD91533BC}.UAT|Any CPU.Build.0 = UAT|Any CPU
 		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -66,10 +82,16 @@ Global
 		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.ReleaseDebug|Any CPU.ActiveCfg = ReleaseDebug|Any CPU
 		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.ReleaseDebug|Any CPU.Build.0 = ReleaseDebug|Any CPU
+		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.TeamCitySecurityClient|Any CPU.ActiveCfg = TeamCitySecurityClient|Any CPU
+		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.TeamCitySecurityService|Any CPU.ActiveCfg = TeamCitySecurityService|Any CPU
+		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.TeamCitySecurityService|Any CPU.Build.0 = TeamCitySecurityService|Any CPU
 		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.UAT|Any CPU.ActiveCfg = UAT|Any CPU
 		{EDD71226-0ABB-4686-BAE6-DF335F3ACFDF}.UAT|Any CPU.Build.0 = UAT|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16AF22CD-2C7C-4895-BEBB-1AB364FA76EC}
 	EndGlobalSection
 EndGlobal

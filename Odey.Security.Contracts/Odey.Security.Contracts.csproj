@@ -47,6 +47,12 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TeamCitySecurityClient|AnyCPU'">
+    <OutputPath>bin\TeamCitySecurityClient\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TeamCitySecurityService|AnyCPU'">
+    <OutputPath>bin\TeamCitySecurityService\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Odey.Framework.Keeley.Entities">
       <HintPath Condition="Exists('..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.dll')">..\..\Binaries\Odey.Framework.Keeley.Entities\Odey.Framework.Keeley.Entities.dll</HintPath>
