@@ -29,5 +29,10 @@ namespace Odey.Security.SecurityService
         {
             return Security.IsUserOperationAllowed(function, operations);
         }
+
+        public Dictionary<int, FunctionOperations> GetUserPermissionsForEntities(EntityTypeIds entityType, IEnumerable<int> ids)
+        {
+            return Security.GetUserPermissionsForEntities(entityType, ids);
+        }
     }
 }

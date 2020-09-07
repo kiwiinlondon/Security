@@ -36,6 +36,11 @@ namespace Odey.Security.Contracts
         /// <returns></returns>
         [OperationContract]
         bool IsUserOperationAllowed(FunctionPointIds function, FunctionOperations operations);
-    
+
+        /// <summary>
+        /// Returns the operations that the current user is allowed for each entity
+        /// </summary>
+        [OperationContract]
+        Dictionary<int, FunctionOperations> GetUserPermissionsForEntities(EntityTypeIds entityType, IEnumerable<int> ids);
     }
 }

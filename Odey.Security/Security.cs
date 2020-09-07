@@ -1,21 +1,13 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Odey.Framework.Infrastructure.Services;
 using Odey.Framework.Keeley.Entities;
 using Odey.Framework.Keeley.Entities.Enums;
-using Odey.Security.Contracts;
 using ServiceModelEx;
-using System.Data.Entity;
-using System.Data.SqlTypes;
 using System.DirectoryServices.AccountManagement;
 using System.Reflection;
 using System.Runtime.Caching;
 using log4net;
-using log4net.Repository.Hierarchy;
 
 namespace Odey.Security
 {
@@ -202,6 +194,13 @@ namespace Odey.Security
                 }
             }
             return groupNames;
+        }
+
+        public static Dictionary<int, FunctionOperations> GetUserPermissionsForEntities(EntityTypeIds entityType, IEnumerable<int> ids)
+        {
+            var username = GetUserName();
+            logger.Info($"{username} permissions requested for {entityType}: {string.Join(", ", ids)}");
+            return ids.ToDictionary(id => id, id => FunctionOperations.Read);
         }
     }
 }
