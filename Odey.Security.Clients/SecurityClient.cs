@@ -65,6 +65,25 @@ namespace Odey.Security.Clients
             return permission;
         }
 
+        public Dictionary<int, FunctionOperations> GetUserPermissionsForEntities(EntityTypeIds entityType, IEnumerable<int> ids)
+        {
+            Dictionary<int, FunctionOperations> permissions;
+            ISecurity proxy = factory.CreateChannel();
+            try
+            {
+                permissions = proxy.GetUserPermissionsForEntities(entityType, ids);
+                ((ICommunicationObject)proxy).Close();
+
+            }
+            catch
+            {
+                ((ICommunicationObject)proxy).Abort();
+                throw;
+            }
+
+            return permissions;
+        }
+
         public bool IsUserOperationAllowed(FunctionPointIds function, FunctionOperations operations)
         {
             bool isUserAllowed;
