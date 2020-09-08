@@ -200,6 +200,14 @@ namespace Odey.Security
         {
             var username = GetUserName();
             logger.Info($"{username} permissions requested for {entityType}: {string.Join(", ", ids)}");
+
+            // Admin users restricted for testing
+            if (username.ToLower().EndsWith("_admin"))
+            {
+                var allowed = new [] { FundIds.OEI, FundIds.OEIEURMSHARECLASS, FundIds.OEIEURSHARECLASSMAC };
+                return ids.ToDictionary(id => id, id => allowed.Contains((FundIds)id) ? FunctionOperations.Read : FunctionOperations.None);
+            }
+
             return ids.ToDictionary(id => id, id => FunctionOperations.Read);
         }
     }
