@@ -198,17 +198,35 @@ namespace Odey.Security
 
         public static Dictionary<int, FunctionOperations> GetUserPermissionsForEntities(EntityTypeIds entityType, IEnumerable<int> ids)
         {
-            var username = GetUserName();
-            logger.Info($"{username} permissions requested for {entityType}: {string.Join(", ", ids)}");
+            ids = ids.Distinct();
 
-            // Admin users restricted for testing
-            if (username.ToLower().EndsWith("_admin"))
+
+            if (entityType == EntityTypeIds.Fund)
             {
-                var allowed = new [] { FundIds.OEI, FundIds.OEIEURMSHARECLASS, FundIds.OEIEURSHARECLASSMAC };
-                return ids.ToDictionary(id => id, id => allowed.Contains((FundIds)id) ? FunctionOperations.Read : FunctionOperations.None);
+                // Admin users restricted for testing
+                var user = GetUserName().ToLower();
+                if (user.EndsWith("_admin") || user == "oam\\jannesm")
+                {
+                    var allowed = new Dictionary<FundIds, bool> {
+                        { FundIds.OUAR, true },
+                        { FundIds.ARFF, true },
+                        { FundIds.KELT, true },
+                        { FundIds.DEVM, true },
+                        { FundIds.FDXH, true },
+                        { FundIds.RAFO, true },
+                    };
+                    return ids.ToDictionary(id => id, id => allowed.ContainsKey((FundIds)id) ? FunctionOperations.Read : FunctionOperations.None);
+                }
+                return ids.ToDictionary(id => id, id => FunctionOperations.Read);
             }
-
-            return ids.ToDictionary(id => id, id => FunctionOperations.Read);
+            else if (entityType == EntityTypeIds.Book)
+            {
+                return ids.ToDictionary(id => id, id => FunctionOperations.Read);
+            }
+            else
+            {
+                throw new NotImplementedException($"{entityType} permissions are not implemented");
+            }
         }
     }
 }
