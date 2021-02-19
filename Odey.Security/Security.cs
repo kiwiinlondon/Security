@@ -204,8 +204,7 @@ namespace Odey.Security
             if (entityType == EntityTypeIds.Fund)
             {
                 // Admin users restricted for testing
-                var user = GetUserName().ToLower();
-                if (user.EndsWith("_admin") || user == "oam\\jannesm")
+                if (GetUserName().ToLower().EndsWith("_admin"))
                 {
                     var allowed = new Dictionary<FundIds, bool> {
                         { FundIds.OUAR, true },
